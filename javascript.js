@@ -1,5 +1,10 @@
 console.log("Hello World");
 
+const buttonRockVar = document.querySelector("#buttonRock");
+const buttonScissorVar = document.querySelector("#buttonScissor");
+const buttonPaperVar = document.querySelector("#buttonPaper");
+const scoreTextVar = document.querySelector("#scoreText");
+
 function getComputerChoice(){
     let randomnumber = Math.floor(Math.random() * 3);
     if (randomnumber === 0) {
@@ -14,10 +19,9 @@ function getComputerChoice(){
 
 }
 
-function getHumanChoice(){
-    let humanchoice = ""
-    humanchoice=prompt("choose what you want (rock, paper, or scissors)");
-
+function getHumanChoice(playerSelectionArg){
+    let humanchoice = "";
+    humanchoice=playerSelectionArg;
     return humanchoice;
 
 }
@@ -26,10 +30,10 @@ function getHumanChoice(){
 let humanScore = 0;
 let computerScore = 0;
 
-function playRound(){
-    let humanChoice = getHumanChoice();
+function playRound(playerSelectionArg){
+    let humanChoice = getHumanChoice(playerSelectionArg);
     let computerChoice = getComputerChoice();
-    console.log("The computer has chosen", computerChoice)
+    console.log("The computer has chosen", computerChoice);
     if (humanChoice === "rock"){
         if (computerChoice === "paper") {
             humanScore = humanScore;
@@ -90,5 +94,36 @@ function playRound(){
             console.log("You chose ", humanChoice, " . Computer selected ", computerChoice, " .None win.");        
         }
     }
-    console.log("Your score is :", humanScore,". Computer score is: ",computerScore)
+
+    scoreBoardText = "Your score is: "+ humanScore+". Computer score is: "+computerScore;
+    console.log(scoreBoardText);
+    scoreTextVar.textContent = scoreBoardText;
+
+    if (humanScore > 5 || computerScore > 5) {
+        if (humanScore>computerScore) {
+            winnerText = "You win. Congratulation!";
+        }
+        else {
+            winnerText = "You lose. Loser!";
+        }
+        humanScore = 0;
+        computerScore = 0;
+        scoreTextVar.textContent = winnerText;
+    }
+    
 }
+
+
+
+buttonRockVar.addEventListener('click', () => {
+    playRound("rock");
+  });
+
+buttonPaperVar.addEventListener('click', () => {
+    playRound("paper");
+  });
+
+buttonScissorVar.addEventListener('click', () => {
+    playRound("scissor");
+  });
+
